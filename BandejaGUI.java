@@ -49,7 +49,7 @@ public class BandejaGUI extends JFrame implements ActionListener{
   }
 
   public static void main(String args[]){
-    SpamGUI Spam= new SpamGUI();
-    Spam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    BandejaGUI bandeja= new BandejaGUI();
+    bandeja.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 }
