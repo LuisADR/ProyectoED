@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
 
+
+// PROBANDO PROBANDO XD
+
 public class BuscarGUI extends JFrame implements ActionListener{
   private JTextField tfDestino, tfAsunto;
   private JButton bBuscarDestino, bBuscarAsunto, bSalir;
