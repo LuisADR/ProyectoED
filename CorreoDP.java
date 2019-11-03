@@ -68,6 +68,6 @@ public class CorreoDP{
     }
 
     public String toString(){
-        return this.nombre+"_"+this.apellido+"_"+this.correo;
+        return this.nombre+"_"+this.apellido+"_"+this.correo+"_"+this.contrasena;
     }
 }

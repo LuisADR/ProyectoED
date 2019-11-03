@@ -7,28 +7,32 @@ public class PrincipalGUI extends JPanel implements ActionListener{
   //private JTextField
   private JButton bSalir;
   private JTextArea taDatos;
-  private JPanel panel1, panel2;
+  private JPanel panel1, panel2, panelCorreo;
 
-  //private CorreoAD correo= new CorreoAD();
+  private CorreoAD correo= new CorreoAD();
 
-  public PrincipalGUI(){
+  //Usuario Actual
+  private CorreoDP conexion;
 
+  public PrincipalGUI(CorreoDP actual){
+    conexion    =   actual;
     bSalir      =   new JButton("Salir");
     taDatos     =   new JTextArea(20,40);
     panel1      =   new JPanel();
     panel2      =   new JPanel();
+    panelCorreo =   correo.consultarJP(conexion.getCorreo());
 
     bSalir.addActionListener(this);
 
-    panel1.setLayout(new GridLayout(5,2));
-    panel2.setLayout(new FlowLayout());
+    panel1.setLayout(new GridLayout(1,2));
+    panel2.setLayout(new GridLayout(2,1));
 
     panel1.add(new JLabel("Bandeja de entrada "));
     panel1.add(bSalir);
     //panel1.add(new JLabel("Cuerpo: "));
 
     panel2.add(panel1);
-    panel2.add(new JScrollPane(taDatos));
+    panel2.add(panelCorreo);
 
 
 

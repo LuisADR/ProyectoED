@@ -85,7 +85,7 @@ public class RedaccionGUI extends JPanel implements ActionListener{
       if(datos.equals("VACIO"))
           taDatos.setText("Algun campo esta vacio...");
       else{
-        respuesta= correo.captura(datos);
+        respuesta= correo.capturaNueva(datos);
         taDatos.setText(respuesta);
       }
     }

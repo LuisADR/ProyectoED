@@ -22,7 +22,7 @@ public class NuevoCorreoDP{
         this.recibe=st.nextToken();
         this.asunto=st.nextToken();
         this.texto=st.nextToken();
-        this.fecha=st.nextToken();
+        
     }
 
     // Accesors

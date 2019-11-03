@@ -10,7 +10,7 @@ public class InicioGUI extends JFrame implements ActionListener{
   private JMenuItem miEnviar, miBuscar, miSalir;
   private JMenuItem miCarpetas[];
 
-  //private CorreoAD correo= new CorreoAD();
+  private CorreoAD correo= new CorreoAD();
 
   /*private RedaccionGUI enviar= new RedaccionGUI();
   private BuscarGUI buscar= new BuscarGUI();
@@ -19,7 +19,12 @@ public class InicioGUI extends JFrame implements ActionListener{
 
   private ArrayList<String> carpetas = new ArrayList<String>();
 
-  private JPanel panel1;
+  private JPanel panel1, loggin, servicio, pContrasena;
+  private JTextField tfcorreo, contrasena;
+  private JButton bIniciar, bRegistrar;
+
+  //Tener la informacion del Usuario
+  private CorreoDP actual;
 
   public InicioGUI(){
     mbPrincipal   =   new JMenuBar();
@@ -34,8 +39,36 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     miCarpetas    =   new JMenuItem[0];
 
-    panel1         =   new JPanel();
+    panel1        =   new JPanel();
+    loggin        =   new JPanel();
+    servicio      =   new JPanel();
+    pContrasena   =   new JPanel();
 
+    tfcorreo      =   new JTextField();
+    contrasena    =   new JTextField();
+    bIniciar      =   new JButton("Iniciar Sesion");
+    bRegistrar    =   new JButton("Registrar");
+
+    //Panel de Loggin
+
+    bIniciar.addActionListener(this);
+    bRegistrar.addActionListener(this);
+
+    servicio.setLayout(new GridLayout(1,3));
+    servicio.add(new JLabel("Usuario"));
+    servicio.add(tfcorreo);
+
+    pContrasena.setLayout(new GridLayout(1,2));
+    pContrasena.add(new JLabel("Contrasena"));
+    pContrasena.add(contrasena);
+
+    loggin.setLayout(new GridLayout(4,1));
+    loggin.add(servicio);
+    loggin.add(pContrasena);
+    loggin.add(bIniciar);
+    loggin.add(bRegistrar);
+
+    //Panel del JFrame
     panel1.setLayout(new FlowLayout());
 
     miPrincipal.addActionListener(this);
@@ -55,11 +88,16 @@ public class InicioGUI extends JFrame implements ActionListener{
     mbPrincipal.add(menuBandeja);
     mbPrincipal.add(menuCorreo);
 
+    panel1.add(loggin);
+
     this.add(panel1);
 
     setJMenuBar(mbPrincipal);
     setSize(500,500);
     setVisible(true);
+
+    menuBandeja.setEnabled(false);
+    menuCorreo.setEnabled(false);
   }
 
   public void addCarpeta(String nombre){
@@ -84,7 +122,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     if(event.getSource()==miPrincipal){
       panel1.removeAll();
-      panel1.add(new PrincipalGUI());
+      panel1.add(new PrincipalGUI(actual));
       panel1.revalidate();
       panel1.repaint();
       pack();
@@ -112,6 +150,23 @@ public class InicioGUI extends JFrame implements ActionListener{
       panel1.repaint();
       pack();
       setSize(500,500);
+    }
+
+    if(event.getSource()==bIniciar){
+      actual = correo.crearConexion(tfcorreo.getText(), contrasena.getText());
+      if(actual == null) JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+      if(actual != null){
+        JOptionPane.showMessageDialog(null, actual.toString());
+        menuBandeja.setEnabled(true);
+        menuCorreo.setEnabled(true);
+        panel1.removeAll();
+        panel1.revalidate();
+        panel1.repaint();
+      }
+    }
+
+    if(event.getSource()==bRegistrar){
+      new CrearUsuarioGUI();
     }
 
     if(event.getSource()== miSalir){
