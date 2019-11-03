@@ -14,7 +14,7 @@ public class InicioGUI extends JFrame implements ActionListener{
   private BuscarGUI buscar= new BuscarGUI();
   private PrincipalGUI principal= new PrincipalGUI();
   private ImportantesGUI importantes= new ImportantesGUI();
-  private SpamGUI spam= new SpamGUI();
+  private BandejaGUI bandeja= new BandejaGUI();
 
   private JPanel panel;
 
@@ -45,7 +45,7 @@ public class InicioGUI extends JFrame implements ActionListener{
     menuBandeja.add(menuCarpetas);
     menuCarpetas.add(miImportantes);
     menuCarpetas.add(miSpam);
-    menuBandeja.add(miCrearCarpeta);
+    menuCarpetas.add(miCrearCarpeta);
 
     menuCorreo.add(miEnviar);
     menuCorreo.add(miBuscar);
@@ -87,7 +87,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     if(event.getSource()==miSpam){
       panel.setVisible(false);
-      panel=spam.getPanel2();
+      panel=bandeja.getPanel2();
       panel.setVisible(true);
       add(panel);
       setVisible(true);

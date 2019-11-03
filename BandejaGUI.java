@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
 
-public class SpamGUI extends JFrame implements ActionListener{
+public class BandejaGUI extends JFrame implements ActionListener{
   //private JTextField
   private JButton bSalir;
   private JTextArea taDatos;
@@ -11,7 +11,7 @@ public class SpamGUI extends JFrame implements ActionListener{
 
   //private CorreoAD correo= new CorreoAD();
 
-  public SpamGUI(){
+  public BandejaGUI(){
 
     bSalir      =   new JButton("Salir");
     taDatos     =   new JTextArea(20,40);
