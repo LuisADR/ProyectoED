@@ -1,12 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class InicioGUI extends JFrame implements ActionListener{
   private JMenuBar mbPrincipal;
   private JMenu menuCarpetas, menuBandeja, menuCorreo;
-  private JMenuItem miPrincipal, miImportantes, miSpam,  miCrearCarpeta;
+  private JMenuItem miPrincipal, miCrearCarpeta;
   private JMenuItem miEnviar, miBuscar, miSalir;
+  private JMenuItem miCarpetas[];
 
   //private CorreoAD correo= new CorreoAD();
 
@@ -15,6 +17,8 @@ public class InicioGUI extends JFrame implements ActionListener{
   private PrincipalGUI principal= new PrincipalGUI();
   private ImportantesGUI importantes= new ImportantesGUI();
   private BandejaGUI bandeja= new BandejaGUI();
+
+  private ArrayList<String> carpetas = new ArrayList<String>();
 
   private JPanel panel;
 
@@ -25,17 +29,15 @@ public class InicioGUI extends JFrame implements ActionListener{
     miPrincipal   =   new JMenuItem("Principal");
     menuCarpetas  =   new JMenu("Carpetas");
     miCrearCarpeta=   new JMenuItem("Crear Carpeta");
-    miImportantes =   new JMenuItem("Importantes");
-    miSpam        =   new JMenuItem("Spam");
     miEnviar      =   new JMenuItem("Enviar");
     miBuscar      =   new JMenuItem("Buscar");
     miSalir       =   new JMenuItem("Salir");
 
+    miCarpetas    =   new JMenuItem[0];
+
     panel         =   new JPanel();
 
     miPrincipal.addActionListener(this);
-    miImportantes.addActionListener(this);
-    miSpam.addActionListener(this);
     miCrearCarpeta.addActionListener(this);
     miEnviar.addActionListener(this);
     miBuscar.addActionListener(this);
@@ -43,8 +45,6 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     menuBandeja.add(miPrincipal);
     menuBandeja.add(menuCarpetas);
-    menuCarpetas.add(miImportantes);
-    menuCarpetas.add(miSpam);
     menuCarpetas.add(miCrearCarpeta);
 
     menuCorreo.add(miEnviar);
@@ -57,6 +57,24 @@ public class InicioGUI extends JFrame implements ActionListener{
     setJMenuBar(mbPrincipal);
     setSize(500,500);
     setVisible(true);
+  }
+
+  public void addCarpeta(String nombre){
+    carpetas.add(nombre);
+    String[] nombres = new String[carpetas.size()];
+    nombres = carpetas.toArray(nombres);
+    miCarpetas = new JMenuItem[carpetas.size()];
+
+    menuCarpetas.removeAll();
+    menuCarpetas.add(miCrearCarpeta);
+
+    for (int i = 0; i < miCarpetas.length;  i++) {
+      miCarpetas[i] = new JMenuItem(nombres[i]);
+      miCarpetas[i].addActionListener(this);
+      menuCarpetas.add(miCarpetas[i]);
+    }
+
+    SwingUtilities.updateComponentTreeUI( this );
   }
 
   public void actionPerformed(ActionEvent event){
@@ -77,24 +95,9 @@ public class InicioGUI extends JFrame implements ActionListener{
       setVisible(true);
     }
 
-    if(event.getSource()==miImportantes){
-      panel.setVisible(false);
-      panel=importantes.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
-    }
-
-    if(event.getSource()==miSpam){
-      panel.setVisible(false);
-      panel=bandeja.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
-    }
-
     if(event.getSource()==miCrearCarpeta){
       String nuevaCarpeta= JOptionPane.showInputDialog("Nombre nueva carpeta");
+      addCarpeta( nuevaCarpeta );
     }
 
     if(event.getSource()==miEnviar){
