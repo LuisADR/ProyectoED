@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
 
-public class EnviarGUI extends JFrame implements ActionListener{
+public class RedaccionGUI extends JPanel implements ActionListener{
   private JTextField tfRemite, tfDestino, tfAsunto;
   private JButton bEnviar, bEnviados, bCancelar, bSalir;
   private JTextArea taDatos;
@@ -11,7 +11,7 @@ public class EnviarGUI extends JFrame implements ActionListener{
 
   private CorreoAD correo= new CorreoAD();
 
-  public EnviarGUI(){
+  public RedaccionGUI(){
 
     tfRemite    =   new JTextField();
     tfDestino   =   new JTextField();
@@ -20,7 +20,7 @@ public class EnviarGUI extends JFrame implements ActionListener{
     bEnviados   =   new JButton("Enviados");
     bCancelar   =   new JButton("Limpiar");
     bSalir      =   new JButton("Salir");
-    taDatos     =   new JTextArea(20,40);
+    taDatos     =   new JTextArea(11,40);
     panel1      =   new JPanel();
     panel2      =   new JPanel();
 
@@ -30,7 +30,7 @@ public class EnviarGUI extends JFrame implements ActionListener{
     bSalir.addActionListener(this);
 
     panel1.setLayout(new GridLayout(5,2));
-    panel2.setLayout(new FlowLayout());
+    panel2.setLayout(new GridLayout(2,1));
 
     panel1.add(new JLabel("Remitente: "));
     panel1.add(tfRemite);
@@ -51,7 +51,7 @@ public class EnviarGUI extends JFrame implements ActionListener{
 
     add(panel2);
     setSize(500,500);
-    setVisible(false);
+    setVisible(true);
   }
 
   public String obtenerDatos(){
@@ -99,10 +99,5 @@ public class EnviarGUI extends JFrame implements ActionListener{
       panel2.setVisible(false);
       respuesta=correo.datosListaArchivo();
     }
-  }
-
-  public static void main(String args[]){
-    EnviarGUI enviar= new EnviarGUI();
-    enviar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 }

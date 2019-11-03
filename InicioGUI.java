@@ -12,15 +12,14 @@ public class InicioGUI extends JFrame implements ActionListener{
 
   //private CorreoAD correo= new CorreoAD();
 
-  private EnviarGUI enviar= new EnviarGUI();
+  /*private RedaccionGUI enviar= new RedaccionGUI();
   private BuscarGUI buscar= new BuscarGUI();
   private PrincipalGUI principal= new PrincipalGUI();
-  private ImportantesGUI importantes= new ImportantesGUI();
-  private BandejaGUI bandeja= new BandejaGUI();
+  private BandejaGUI bandeja= new BandejaGUI();*/
 
   private ArrayList<String> carpetas = new ArrayList<String>();
 
-  private JPanel panel;
+  private JPanel panel1;
 
   public InicioGUI(){
     mbPrincipal   =   new JMenuBar();
@@ -35,7 +34,9 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     miCarpetas    =   new JMenuItem[0];
 
-    panel         =   new JPanel();
+    panel1         =   new JPanel();
+
+    panel1.setLayout(new FlowLayout());
 
     miPrincipal.addActionListener(this);
     miCrearCarpeta.addActionListener(this);
@@ -53,6 +54,8 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     mbPrincipal.add(menuBandeja);
     mbPrincipal.add(menuCorreo);
+
+    this.add(panel1);
 
     setJMenuBar(mbPrincipal);
     setSize(500,500);
@@ -80,19 +83,12 @@ public class InicioGUI extends JFrame implements ActionListener{
   public void actionPerformed(ActionEvent event){
 
     if(event.getSource()==miPrincipal){
-      panel.setVisible(false);
-      //panel=bandeja.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
-    }
-
-    if(event.getSource()==miPrincipal){
-      panel.setVisible(false);
-      panel=principal.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
+      panel1.removeAll();
+      panel1.add(new PrincipalGUI());
+      panel1.revalidate();
+      panel1.repaint();
+      pack();
+      setSize(600,500);
     }
 
     if(event.getSource()==miCrearCarpeta){
@@ -101,19 +97,21 @@ public class InicioGUI extends JFrame implements ActionListener{
     }
 
     if(event.getSource()==miEnviar){
-      panel.setVisible(false);
-      panel=enviar.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
+      panel1.removeAll();
+      panel1.add(new RedaccionGUI());
+      panel1.revalidate();
+      panel1.repaint();
+      pack();
+      setSize(500,500);
     }
 
     if(event.getSource()==miBuscar){
-      panel.setVisible(false);
-      panel=buscar.getPanel2();
-      panel.setVisible(true);
-      add(panel);
-      setVisible(true);
+      panel1.removeAll();
+      panel1.add(new BuscarGUI());
+      panel1.revalidate();
+      panel1.repaint();
+      pack();
+      setSize(500,500);
     }
 
     if(event.getSource()== miSalir){

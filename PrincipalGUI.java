@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
 
-public class PrincipalGUI extends JFrame implements ActionListener{
+public class PrincipalGUI extends JPanel implements ActionListener{
   //private JTextField
   private JButton bSalir;
   private JTextArea taDatos;
@@ -34,7 +34,7 @@ public class PrincipalGUI extends JFrame implements ActionListener{
 
     add(panel2);
     setSize(500,500);
-    setVisible(false);
+    setVisible(true);
   }
 
 
@@ -46,10 +46,5 @@ public class PrincipalGUI extends JFrame implements ActionListener{
     if(e.getSource()==bSalir){
       panel2.setVisible(false);
     }
-  }
-
-  public static void main(String args[]){
-    PrincipalGUI principal= new PrincipalGUI();
-    principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 }
