@@ -3,7 +3,7 @@ import java.util.StringTokenizer;
 public class NuevoCorreoDP{
 
     // Atributos
-    private String envia, recibe, asunto, texto;
+    private String envia, recibe, asunto, texto, fecha;
 
     private NuevoCorreoDP next;
 
@@ -13,6 +13,7 @@ public class NuevoCorreoDP{
         this.recibe="";
         this.asunto="";
         this.texto="";
+        this.fecha="";
     }
 
     public NuevoCorreoDP(String datos){
@@ -21,6 +22,7 @@ public class NuevoCorreoDP{
         this.recibe=st.nextToken();
         this.asunto=st.nextToken();
         this.texto=st.nextToken();
+        this.fecha=st.nextToken();
     }
 
     // Accesors
@@ -38,6 +40,10 @@ public class NuevoCorreoDP{
 
     public String getTexto(){
         return this.texto;
+    }
+
+    public String getFecha(){
+        return this.fecha;
     }
 
     public NuevoCorreoDP getNext(){
@@ -60,6 +66,10 @@ public class NuevoCorreoDP{
 
     public void setTexto(String txt){
         this.texto = txt;
+    }
+
+    public void setFecha(String txt){
+        this.fecha = txt;
     }
 
     public void setNext(NuevoCorreoDP nodo){
