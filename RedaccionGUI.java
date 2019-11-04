@@ -90,10 +90,10 @@ public class RedaccionGUI extends JPanel implements ActionListener{
       else{
         respuesta= correo.consultarExistente(datos);
         if(respuesta.equals("ENVIADO")){
-          respuesta="Enviado con exito";
+          JOptionPane.showMessageDialog("Correo Enviado")
         }
         if(respuesta.equals("NOT_FOUND")){
-          respuesta="Correo destino no encontrado";
+          JOptionPane.showMessageDialog("Correo Destino No Encontrado")
         }
         taDatos.setText(respuesta);
       }
