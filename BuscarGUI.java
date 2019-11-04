@@ -12,10 +12,12 @@ public class BuscarGUI extends JPanel implements ActionListener{
   private JTextArea taDatos;
   private JPanel panel1, panel2;
 
-  //private CorreoAD correo= new CorreoAD();
+  private CorreoAD correo= new CorreoAD();
+  private CorreoDP act;
 
-  public BuscarGUI(){
+  public BuscarGUI(NuevoCorreoDP actualC, CorreoDP actual){
 
+    act= actual;
     tfDestino   =   new JTextField();
     tfAsunto    =   new JTextField();
 
@@ -56,28 +58,28 @@ public class BuscarGUI extends JPanel implements ActionListener{
     setVisible(true);
   }
 
-  public String obtenerDatos(){
-    String datos="";
-
-    String destino= tfDestino.getText();
-    String asunto= tfAsunto.getText();
-    String mensaje= taDatos.getText();
-
-    if(destino.isEmpty() || asunto.isEmpty()){
-      datos="VACIO";
-    }
-    else{
-      datos=destino+"_"+asunto+"_"+mensaje;
-    }
-
-    return datos;
-  }
-
   public JPanel getPanel2(){
     return this.panel2;
   }
 
   public void actionPerformed(ActionEvent e){
+    String respuesta, datos;
+
+    if(e.getSource()==bBuscarDestino){
+      String envia= act.getCorreo();
+      String destino= tfDestino.getText();
+      respuesta=correo.consultarDestino(destino, envia);
+      taDatos.setText(respuesta);
+    }
+
+    if(e.getSource()==bBuscarAsunto){
+      String envia= act.getCorreo();
+      String asunto= tfAsunto.getText();
+      respuesta=correo.consultarAsunto(asunto, envia);
+      taDatos.setText(respuesta);
+    }
+
+
     if(e.getSource()==bSalir){
       panel2.setVisible(false);
     }

@@ -25,6 +25,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
   //Tener la informacion del Usuario
   private CorreoDP actual;
+  private NuevoCorreoDP actualC;
 
   public InicioGUI(){
     mbPrincipal   =   new JMenuBar();
@@ -145,7 +146,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     if(event.getSource()==miBuscar){
       panel1.removeAll();
-      panel1.add(new BuscarGUI());
+      panel1.add(new BuscarGUI(actualC, actual));
       panel1.revalidate();
       panel1.repaint();
       pack();

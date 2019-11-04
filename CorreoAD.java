@@ -133,6 +133,58 @@ public class CorreoAD{
     return datos;
   }
 
+  public String consultarDestino(String destino, String envia){
+    String datos="";
+    int i=0;
+    boolean encontrado=false;
+
+    if(listaCorreos.isEmpty()){
+        datos="LISTA_VACIA";
+    }
+
+    else{
+      while(i<listaCorreos.size()){
+        actual = (NuevoCorreoDP)listaCorreos.get(i);
+        if(actual.getRecibe().equals(destino) && actual.getEnvia().equals(envia)){
+          datos=datos+actual.toString()+"\n";
+          encontrado=true;
+        }
+        i++;
+      }
+
+        if(encontrado==false){
+          datos="No se encontraron correos con ese destino";
+        }
+      }
+      return datos;
+  }
+
+  public String consultarAsunto(String asunto, String envia){
+    String datos="";
+    int i=0;
+    boolean encontrado=false;
+
+    if(listaCorreos.isEmpty()){
+        datos="LISTA_VACIA";
+    }
+
+    else{
+      while(i<listaCorreos.size()){
+        actual = (NuevoCorreoDP)listaCorreos.get(i);
+        if(actual.getAsunto().equals(asunto) && actual.getEnvia().equals(envia)){
+          datos=datos+actual.toString()+"\n";
+          encontrado=true;
+        }
+        i++;
+      }
+
+        if(encontrado==false){
+          datos="No se encontraron correos con ese Asunto";
+        }
+      }
+      return datos;
+  }
+
   //Generacion de una lista de correos
   public JPanel consultarJP(String cuenta){
     JPanel pCorreo = new JPanel();
