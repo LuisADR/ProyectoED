@@ -90,7 +90,7 @@ public class RedaccionGUI extends JPanel implements ActionListener{
       else{
         respuesta= correo.consultarExistente(datos);
         if(respuesta.equals("ENVIADO")){
-          respuesta="Enviado con existo";
+          respuesta="Enviado con exito";
         }
         if(respuesta.equals("NOT_FOUND")){
           respuesta="Correo destino no encontrado";
