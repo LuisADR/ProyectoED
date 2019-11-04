@@ -104,6 +104,12 @@ public class RedaccionGUI extends JPanel implements ActionListener{
       taDatos.setText(datos);
     }
 
+    if(e.getSource()==bCancelar){
+      tfDestino.setText("");
+      tfAsunto.setText("");
+      taDatos.setText("");
+    }
+
     if(e.getSource()==bSalir){
       panel2.setVisible(false);
       respuesta=correo.datosListaArchivo();

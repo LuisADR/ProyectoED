@@ -40,6 +40,7 @@ public class CorreoAD{
     return datos;
   }
 
+//Consulta de si el correo ya esta registrado
   public String consultarCorreo(String datos){
     StringTokenizer st = new StringTokenizer(datos,"_");
 
@@ -126,6 +127,7 @@ public class CorreoAD{
     //return "Correo enviado";
   }
 
+//Consulta de si el destino existe en el registro
   public String consultarExistente(String datos){
     StringTokenizer st = new StringTokenizer(datos,"_");
 
@@ -176,6 +178,7 @@ public class CorreoAD{
     return datos;
   }
 
+//Consulta de correos enviados a cierto destino
   public String consultarDestino(String destino, String envia){
     String datos="";
     int i=0;
@@ -202,6 +205,7 @@ public class CorreoAD{
       return datos;
   }
 
+//Consulta de correos enviados con determinado asunto
   public String consultarAsunto(String asunto, String envia){
     String datos="";
     int i=0;
