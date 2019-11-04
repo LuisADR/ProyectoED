@@ -89,7 +89,7 @@ public class RedaccionGUI extends JPanel implements ActionListener{
           taDatos.setText("Algun campo esta vacio...");
       else{
         respuesta= correo.consultarExistente(datos);
-        if(respuesta.equals("ENVIADO")){
+        if(respuesta.equals("ENCONTRADO")){
           JOptionPane.showMessageDialog(null,"Correo Enviado");
         }
         if(respuesta.equals("NOT_FOUND")){

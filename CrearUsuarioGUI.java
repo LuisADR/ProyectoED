@@ -79,8 +79,13 @@ public class CrearUsuarioGUI extends JFrame implements ActionListener{
       if(datos.equals("VACIO"))
         JOptionPane.showMessageDialog(null, "Algun campo esta vacio");
       else{
-        JOptionPane.showMessageDialog(null, "Registro completado, puede cerrar esta ventana");
-        correo.capturarNuevoUsuario(datos);
+        datos=correo.capturarNuevoUsuario(datos);
+        if(datos.equals("EXISTENTE")){
+          JOptionPane.showMessageDialog(null, "Usuario ya registrado");
+        }
+        else{
+          JOptionPane.showMessageDialog(null, "Registro completado, puede cerrar esta ventana");
+        }
       }
     }
 

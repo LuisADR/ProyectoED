@@ -24,10 +24,53 @@ public class CorreoAD{
   }
 
   //Registrar Usuario
-  public void capturarNuevoUsuario(String datos){
-    listaUsuarios.add(new CorreoDP(datos));
-    System.out.println("Registro");
-    datosUsuarioArchivo();
+  public String capturarNuevoUsuario(String datos){
+    String respuesta="";
+    respuesta=consultarCorreo(datos);
+    if(respuesta.equals("ENCONTRADO")){
+      datos="EXISTENTE";
+    }
+    else{
+      listaUsuarios.add(new CorreoDP(datos));
+      System.out.println("Registro");
+      datosUsuarioArchivo();
+      datos="REGISTRO";
+    }
+
+    return datos;
+  }
+
+  public String consultarCorreo(String datos){
+    StringTokenizer st = new StringTokenizer(datos,"_");
+
+    String nombre  = st.nextToken();
+    String apellido = st.nextToken();
+    String correo = st.nextToken();
+
+    Boolean encontrado=false;
+    int i=0;
+
+    if(listaUsuarios.isEmpty()){
+        datos="LISTA_VACIA";
+    }
+
+    else{
+      while(i<listaUsuarios.size() && !encontrado){
+        cActual = (CorreoDP)listaUsuarios.get(i);
+
+        if(cActual.getCorreo().equals(correo)){
+          nodoActual = i;
+          encontrado=true;
+          datos="ENCONTRADO";
+        }
+        i++;
+      }
+
+        if(encontrado==false){
+          datos="NOT_FOUND";
+        }
+      }
+      return datos;
   }
 
   public void capturarUsuario(String datos){
@@ -104,7 +147,7 @@ public class CorreoAD{
           nodoActual = i;
           encontrado=true;
           capturaNueva(datos);
-          datos="ENVIADO";
+          datos="ENCONTRADO";
         }
         i++;
       }
