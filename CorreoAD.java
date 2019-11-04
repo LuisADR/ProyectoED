@@ -77,10 +77,43 @@ public class CorreoAD{
     return "Nuevo correo enviado";
   }
 
-  public String capturaNueva(String datos){
+  public void capturaNueva(String datos){
     listaCorreos.add(new NuevoCorreoDP(datos));
     datosListaArchivo();
-    return "Correo enviado";
+    //return "Correo enviado";
+  }
+
+  public String consultarExistente(String datos){
+    StringTokenizer st = new StringTokenizer(datos,"_");
+
+    String remitente  = st.nextToken();
+    String destino = st.nextToken();
+
+    Boolean encontrado=false;
+    int i=0;
+
+    if(listaUsuarios.isEmpty()){
+        datos="LISTA_VACIA";
+    }
+
+    else{
+      while(i<listaUsuarios.size() && !encontrado){
+        cActual = (CorreoDP)listaUsuarios.get(i);
+
+        if(cActual.getCorreo().equals(destino)){
+          nodoActual = i;
+          encontrado=true;
+          capturaNueva(datos);
+          datos="ENVIADO";
+        }
+        i++;
+      }
+
+        if(encontrado==false){
+          datos="NOT_FOUND";
+        }
+      }
+      return datos;
   }
 
   public String consultar(){

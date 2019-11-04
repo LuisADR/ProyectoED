@@ -136,7 +136,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     if(event.getSource()==miEnviar){
       panel1.removeAll();
-      panel1.add(new RedaccionGUI());
+      panel1.add(new RedaccionGUI(actual));
       panel1.revalidate();
       panel1.repaint();
       pack();

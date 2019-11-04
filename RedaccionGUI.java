@@ -11,9 +11,12 @@ public class RedaccionGUI extends JPanel implements ActionListener{
 
   private CorreoAD correo= new CorreoAD();
 
-  public RedaccionGUI(){
+  private CorreoDP act;
 
-    tfRemite    =   new JTextField();
+  public RedaccionGUI(CorreoDP actual){
+
+    //tfRemite    =   new JTextField();
+    act         =   actual;
     tfDestino   =   new JTextField();
     tfAsunto    =   new JTextField();
     bEnviar     =   new JButton("Enviar");
@@ -32,8 +35,8 @@ public class RedaccionGUI extends JPanel implements ActionListener{
     panel1.setLayout(new GridLayout(5,2));
     panel2.setLayout(new GridLayout(2,1));
 
-    panel1.add(new JLabel("Remitente: "));
-    panel1.add(tfRemite);
+    //panel1.add(new JLabel("Remitente: "));
+    //panel1.add(tfRemite);
     panel1.add(new JLabel("Destinatario: "));
     panel1.add(tfDestino);
     panel1.add(new JLabel("Asunto: "));
@@ -57,12 +60,12 @@ public class RedaccionGUI extends JPanel implements ActionListener{
   public String obtenerDatos(){
     String datos="";
 
-    String remite= tfRemite.getText();
+    String remite= act.getCorreo();
     String destino= tfDestino.getText();
     String asunto= tfAsunto.getText();
     String mensaje= taDatos.getText();
 
-    if(remite.isEmpty() || destino.isEmpty() || asunto.isEmpty() || mensaje.isEmpty()){
+    if(destino.isEmpty() || asunto.isEmpty() || mensaje.isEmpty()){
       datos="VACIO";
     }
     else{
@@ -85,7 +88,13 @@ public class RedaccionGUI extends JPanel implements ActionListener{
       if(datos.equals("VACIO"))
           taDatos.setText("Algun campo esta vacio...");
       else{
-        respuesta= correo.capturaNueva(datos);
+        respuesta= correo.consultarExistente(datos);
+        if(respuesta.equals("ENVIADO")){
+          respuesta="Enviado con existo";
+        }
+        if(respuesta.equals("NOT_FOUND")){
+          respuesta="Correo destino no encontrado";
+        }
         taDatos.setText(respuesta);
       }
     }
