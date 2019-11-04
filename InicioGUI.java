@@ -130,12 +130,12 @@ public class InicioGUI extends JFrame implements ActionListener{
       setSize(600,500);
     }
 
-    if(event.getSource()==miCrearCarpeta){
+    else if(event.getSource()==miCrearCarpeta){
       String nuevaCarpeta= JOptionPane.showInputDialog("Nombre nueva carpeta");
       addCarpeta( nuevaCarpeta );
     }
 
-    if(event.getSource()==miEnviar){
+    else if(event.getSource()==miEnviar){
       panel1.removeAll();
       panel1.add(new RedaccionGUI(actual));
       panel1.revalidate();
@@ -144,7 +144,7 @@ public class InicioGUI extends JFrame implements ActionListener{
       setSize(500,500);
     }
 
-    if(event.getSource()==miBuscar){
+    else if(event.getSource()==miBuscar){
       panel1.removeAll();
       panel1.add(new BuscarGUI(actualC, actual));
       panel1.revalidate();
@@ -153,7 +153,7 @@ public class InicioGUI extends JFrame implements ActionListener{
       setSize(500,500);
     }
 
-    if(event.getSource()==bIniciar){
+    else if(event.getSource()==bIniciar){
       actual = correo.crearConexion(tfcorreo.getText(), contrasena.getText());
       if(actual == null) JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
       if(actual != null){
@@ -166,13 +166,20 @@ public class InicioGUI extends JFrame implements ActionListener{
       }
     }
 
-    if(event.getSource()==bRegistrar){
+    else if(event.getSource()==bRegistrar){
       new CrearUsuarioGUI();
     }
 
-    if(event.getSource()== miSalir){
+    else if(event.getSource()== miSalir){
 			System.exit(0);
 		}
+    else{
+      for (int i  = 0; i < miCarpetas.length; i++) {
+        if(event.getSource() == miCarpetas[i]){
+          JOptionPane.showMessageDialog(null, carpetas.get(i));
+        }
+      }
+    }
 
   }
 
