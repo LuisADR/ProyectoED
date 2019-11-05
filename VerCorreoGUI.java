@@ -8,18 +8,22 @@ public class VerCorreoGUI extends JFrame implements ActionListener{
   private JMenu menuCarpetas;
   private JMenuItem miCarpetas[], miSalir;
 
+  private CorreoAD correo= new CorreoAD();
+
   private JTextField tfRemite, tfDestino, tfAsunto;
   private JTextArea taDatos;
   private JPanel panel1, panel2;
 
-  private CorreoAD correo= new CorreoAD();
+  private CorreoAD correoad= new CorreoAD();
   private NuevoCorreoDP mensaje;
+  private String usuario;
 
   private ArrayList<String> carpetas = new ArrayList<String>();
 
-  public VerCorreoGUI(/*NuevoCorreoDP datos*/){
-
-    //mensaje = datos;
+  public VerCorreoGUI(NuevoCorreoDP datos, String cuenta){
+    this.carpetas = correo.getCarpetas(cuenta);
+    usuario = cuenta;
+    mensaje = datos;
 
     mbPrincipal   =   new JMenuBar();
     menuCarpetas  =   new JMenu("Mover a");
@@ -56,10 +60,18 @@ public class VerCorreoGUI extends JFrame implements ActionListener{
     mbPrincipal.add(menuCarpetas);
     mbPrincipal.add(miSalir);
 
+    tfRemite.setText(datos.getEnvia());
+    tfDestino.setText(datos.getRecibe());
+    tfAsunto.setText(datos.getAsunto());
+    taDatos.setText(datos.getTexto());
+
     this.add(panel2);
     setJMenuBar(mbPrincipal);
     setSize(500,500);
+
+
     setVisible(true);
+    System.out.println("Creo correo");
 
   }
 
@@ -83,19 +95,18 @@ public class VerCorreoGUI extends JFrame implements ActionListener{
 
   }
 
-  public void desplegarDatos(){
-
-  }
-
   public void actionPerformed(ActionEvent e){
     String datos;
 
-
-  }
-
-  public static void main (String args[]){
-    VerCorreoGUI inicio = new VerCorreoGUI();
-    inicio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    if(e.getSource()==miSalir){
+      setVisible(false);
+    } else {
+      for (int i  = 0; i < miCarpetas.length; i++) {
+        if(e.getSource() == miCarpetas[i]){
+          correoad.agregarCorreoCarpeta(usuario, carpetas.get(i), mensaje.getAsunto());
+        }
+      }
+    }
   }
 
 }

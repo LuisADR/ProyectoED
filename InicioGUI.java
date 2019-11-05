@@ -149,6 +149,7 @@ public class InicioGUI extends JFrame implements ActionListener{
   public void actionPerformed(ActionEvent event){
 
     if(event.getSource()==miPrincipal){
+      correo= new CorreoAD();
       panel1.removeAll();
       panel1.add(new PrincipalGUI(actual));
       panel1.revalidate();
@@ -205,12 +206,27 @@ public class InicioGUI extends JFrame implements ActionListener{
     }
 
     else if(event.getSource()== miSalir){
-			System.exit(0);
+      panel1.removeAll();
+      panel1.add(loggin);
+      panel1.revalidate();
+      panel1.repaint();
+      pack();
+      setSize(500,500);
 		}
     else{
       for (int i  = 0; i < miCarpetas.length; i++) {
         if(event.getSource() == miCarpetas[i]){
+          correo= new CorreoAD();
           JOptionPane.showMessageDialog(null, carpetas.get(i));
+          JPanel bandeja = correo.consultarJP(actual.getCorreo(), carpetas.get(i));
+
+
+          panel1.removeAll();
+          panel1.add(new BandejaGUI(actual, bandeja));
+          panel1.revalidate();
+          panel1.repaint();
+          pack();
+          setSize(500,500);
         }
       }
     }

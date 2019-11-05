@@ -9,10 +9,13 @@ public class BandejaGUI extends JPanel implements ActionListener{
   private JTextArea taDatos;
   private JPanel panel1, panel2;
 
-  //private CorreoAD correo= new CorreoAD();
+  private CorreoAD correo= new CorreoAD();
 
-  public BandejaGUI(){
+  //Usuario Actual
+  private CorreoDP conexion;
 
+  public BandejaGUI(CorreoDP actual, JPanel bandeja){
+    conexion    =   actual;
     bSalir      =   new JButton("Salir");
     taDatos     =   new JTextArea(20,40);
     panel1      =   new JPanel();
@@ -20,15 +23,16 @@ public class BandejaGUI extends JPanel implements ActionListener{
 
     bSalir.addActionListener(this);
 
-    panel1.setLayout(new GridLayout(5,2));
-    panel2.setLayout(new FlowLayout());
+    panel1.setLayout(new GridLayout(3,2));
+    panel2.setLayout(new GridLayout(2,1));
+    this.setLayout(new FlowLayout());
 
-    panel1.add(new JLabel("Spam"));
+    panel1.add(new JLabel("Carpeta"));
     panel1.add(bSalir);
     //panel1.add(new JLabel("Cuerpo: "));
 
     panel2.add(panel1);
-    panel2.add(new JScrollPane(taDatos));
+    panel2.add(bandeja);
 
 
 

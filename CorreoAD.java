@@ -95,8 +95,24 @@ public class CorreoAD{
   }
 
   //Añadir correo a carpeta
-  public void agregarCorreoCarpeta(String mail, String nombreCarpeta){
-    
+  public void agregarCorreoCarpeta(String mail, String nombreCarpeta, String asunto){
+  int i = 0;
+
+  while(i<listaCarpetas.size()){
+    carpetaPrimero=(CarpetaDP)listaCarpetas.get(i);
+
+    if(carpetaPrimero.getCuenta().equals(mail)){
+
+      if(carpetaPrimero.getNombreCarpeta().equals(nombreCarpeta)){
+        carpetaPrimero.addCorreo(asunto);
+        datosCarpetaArchivo();
+        JOptionPane.showMessageDialog(null, "Correo agregado a " + nombreCarpeta);
+        break;
+      }
+    }
+
+    i++;
+    }
   }
 
   //Enviar nombre de carpetas
@@ -285,7 +301,7 @@ public class CorreoAD{
       while(i < listaCorreos.size()){
         actual=(NuevoCorreoDP) listaCorreos.get(i);
         if(actual.getRecibe().equals(cuenta)){
-          pCorreo.add(new CorreoMGUI((NuevoCorreoDP) listaCorreos.get(i)));
+          pCorreo.add(new CorreoMGUI((NuevoCorreoDP) listaCorreos.get(i), cuenta));
           isEmpty = false;
         }
 
@@ -302,6 +318,57 @@ public class CorreoAD{
     }
   }
 
+  public JPanel consultarJP(String cuenta, String carpeta){
+
+    JPanel pCorreo = new JPanel();
+    int i =0;
+    boolean isEmpty = true;
+    String[] asuntos = new String[0];
+    carpetaActual = null;
+
+    while(i<listaCarpetas.size()){
+      carpetaPrimero=(CarpetaDP)listaCarpetas.get(i);
+
+      if(carpetaPrimero.getCuenta().equals(cuenta)){
+        if(carpetaPrimero.getNombreCarpeta().equals(carpeta)){
+          carpetaActual = carpetaPrimero;
+          asuntos = carpetaPrimero.getCorreos();
+          break;
+        }
+      }
+
+      i++;
+    }
+
+    if(carpetaActual == null){
+      pCorreo.add(new JLabel("No tiene ningun correo"));
+      return pCorreo;
+    } else {
+      pCorreo.setLayout(new GridLayout(listaCorreos.size(),1));
+
+      while(i < listaCorreos.size()){
+        actual=(NuevoCorreoDP) listaCorreos.get(i);
+
+        for (int j = 0; j < asuntos.length ; j++) {
+          if(actual.getRecibe().equals(cuenta)){
+            if(actual.getAsunto().equals(asuntos[j])){
+              pCorreo.add(new CorreoMGUI((NuevoCorreoDP) listaCorreos.get(i), cuenta));
+              isEmpty = false;
+              System.out.println("Entro");
+            }
+          }
+        }
+        i++;
+      }
+
+      if(isEmpty){
+        pCorreo.add(new JLabel("No tiene ningun correo"));
+      }
+
+      System.out.println("Termino");
+      return pCorreo;
+    }
+  }
 
   //Control de textos y archivos
   public String datosListaArchivo(){
