@@ -30,5 +30,11 @@ public class CorreoMGUI extends JPanel{
 
     this.add(panel1);
     setVisible(true);
+
+    mostrarCorreo(mensaje);
+  }
+
+  public void mostrarCorreo(NuevoCorreoDP mensaje){
+    JOptionPane.showMessageDialog(null, mensaje.toString());
   }
 }
