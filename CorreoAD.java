@@ -232,6 +232,33 @@ public class CorreoAD{
     return datos;
   }
 
+  //Despliega correos enviados por Usuario
+  public String consultaEnviados(String envia){
+    String datos="";
+    int i=0;
+    boolean encontrado=false;
+
+    if(listaCorreos.isEmpty()){
+        datos="LISTA_VACIA";
+    }
+
+    else{
+      while(i<listaCorreos.size()){
+        actual = (NuevoCorreoDP)listaCorreos.get(i);
+        if(actual.getEnvia().equals(envia)){
+          datos=datos+actual.toString()+"\n";
+          encontrado=true;
+        }
+        i++;
+      }
+
+        if(encontrado==false){
+          datos="No ha enviado correos";
+        }
+      }
+      return datos;
+  }
+
   //Consulta de correos enviados a cierto destino
   public String consultarDestino(String destino, String envia){
     String datos="";

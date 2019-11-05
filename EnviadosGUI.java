@@ -3,24 +3,25 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
 
-public class BandejaGUI extends JPanel implements ActionListener{
+public class EnviadosGUI extends JPanel implements ActionListener{
   //private JTextField
   private JButton bSalir;
   private JTextArea taDatos;
   private JPanel panel1, panel2;
 
   private CorreoAD correo= new CorreoAD();
-  private NuevoCorreoDP act;
+  private CorreoDP act;
 
   //Usuario Actual
-  private CorreoDP conexion;
 
-  public BandejaGUI(CorreoDP actual, JPanel bandeja){
-    conexion    =   actual;
+  public EnviadosGUI(CorreoDP actual){
+
+    act= actual;
     bSalir      =   new JButton("Salir");
     taDatos     =   new JTextArea(20,40);
     panel1      =   new JPanel();
     panel2      =   new JPanel();
+    taDatos     =   new JTextArea(11,30);
 
     bSalir.addActionListener(this);
 
@@ -28,18 +29,22 @@ public class BandejaGUI extends JPanel implements ActionListener{
     panel2.setLayout(new GridLayout(2,1));
     this.setLayout(new FlowLayout());
 
-    panel1.add(new JLabel("Carpeta"));
+    panel1.add(new JLabel("Enviados"));
     panel1.add(bSalir);
     //panel1.add(new JLabel("Cuerpo: "));
 
     panel2.add(panel1);
-    panel2.add(bandeja);
-
+    panel2.add(new JScrollPane(taDatos));
 
 
     add(panel2);
     setSize(500,500);
     setVisible(true);
+
+    String remite= act.getCorreo();
+    String respuesta= correo.consultaEnviados(remite);
+    taDatos.setText(respuesta);
+
   }
 
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class InicioGUI extends JFrame implements ActionListener{
   private JMenuBar mbPrincipal;
   private JMenu menuCarpetas, menuBandeja, menuCorreo;
-  private JMenuItem miPrincipal, miCrearCarpeta;
+  private JMenuItem miPrincipal, miSalida, miCrearCarpeta;
   private JMenuItem miEnviar, miBuscar, miSalir;
   private JMenuItem miCarpetas[];
 
@@ -32,6 +32,7 @@ public class InicioGUI extends JFrame implements ActionListener{
     menuBandeja   =   new JMenu("Bandeja");
     menuCorreo    =   new JMenu("Correo");
     miPrincipal   =   new JMenuItem("Principal");
+    miSalida      =   new JMenuItem("Bandeja Salida");
     menuCarpetas  =   new JMenu("Carpetas");
     miCrearCarpeta=   new JMenuItem("Crear Carpeta");
     miEnviar      =   new JMenuItem("Enviar");
@@ -77,8 +78,10 @@ public class InicioGUI extends JFrame implements ActionListener{
     miEnviar.addActionListener(this);
     miBuscar.addActionListener(this);
     miSalir.addActionListener(this);
+    miSalida.addActionListener(this);
 
     menuBandeja.add(miPrincipal);
+    menuBandeja.add(miSalida);
     menuBandeja.add(menuCarpetas);
 
     menuCorreo.add(miEnviar);
@@ -156,6 +159,15 @@ public class InicioGUI extends JFrame implements ActionListener{
       panel1.repaint();
       pack();
       setSize(600,500);
+    }
+
+    if(event.getSource()==miSalida){
+      panel1.removeAll();
+      panel1.add(new EnviadosGUI(actual));
+      panel1.revalidate();
+      panel1.repaint();
+      pack();
+      setSize(500,500);
     }
 
     else if(event.getSource()==miCrearCarpeta){
