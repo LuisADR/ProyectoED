@@ -24,8 +24,9 @@ public class PrincipalGUI extends JPanel implements ActionListener{
 
     bSalir.addActionListener(this);
 
-    panel1.setLayout(new GridLayout(1,2));
+    panel1.setLayout(new GridLayout(3,2));
     panel2.setLayout(new GridLayout(2,1));
+    this.setLayout(new FlowLayout());
 
     panel1.add(new JLabel("Bandeja de entrada "));
     panel1.add(bSalir);

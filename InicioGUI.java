@@ -80,7 +80,6 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     menuBandeja.add(miPrincipal);
     menuBandeja.add(menuCarpetas);
-    menuCarpetas.add(miCrearCarpeta);
 
     menuCorreo.add(miEnviar);
     menuCorreo.add(miBuscar);
@@ -101,8 +100,9 @@ public class InicioGUI extends JFrame implements ActionListener{
     menuCorreo.setEnabled(false);
   }
 
-  public void addCarpeta(String nombre){
-    carpetas.add(nombre);
+  public void crearCarpetas(){
+
+    //Añadimos al menu
     String[] nombres = new String[carpetas.size()];
     nombres = carpetas.toArray(nombres);
     miCarpetas = new JMenuItem[carpetas.size()];
@@ -110,6 +110,33 @@ public class InicioGUI extends JFrame implements ActionListener{
     menuCarpetas.removeAll();
     menuCarpetas.add(miCrearCarpeta);
 
+    //Volemos a cargar el menu
+    for (int i = 0; i < miCarpetas.length;  i++) {
+      miCarpetas[i] = new JMenuItem(nombres[i]);
+      miCarpetas[i].addActionListener(this);
+      menuCarpetas.add(miCarpetas[i]);
+    }
+
+    SwingUtilities.updateComponentTreeUI(this);
+
+  }
+
+  public void addCarpeta(String nombre){
+    carpetas.add(nombre);
+
+    //Creamos la carpeta en el sistema
+    String datos = actual.getCorreo() + "_" + nombre;
+    correo.capturarCarpetaNueva(datos);
+
+    //Añadimos al menu
+    String[] nombres = new String[carpetas.size()];
+    nombres = carpetas.toArray(nombres);
+    miCarpetas = new JMenuItem[carpetas.size()];
+
+    menuCarpetas.removeAll();
+    menuCarpetas.add(miCrearCarpeta);
+
+    //Volemos a cargar el menu
     for (int i = 0; i < miCarpetas.length;  i++) {
       miCarpetas[i] = new JMenuItem(nombres[i]);
       miCarpetas[i].addActionListener(this);
@@ -157,9 +184,16 @@ public class InicioGUI extends JFrame implements ActionListener{
       actual = correo.crearConexion(tfcorreo.getText(), contrasena.getText());
       if(actual == null) JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
       if(actual != null){
+
+        //Inicio Sesion
         JOptionPane.showMessageDialog(null, actual.toString());
         menuBandeja.setEnabled(true);
         menuCorreo.setEnabled(true);
+
+        //Obtener Carpetas
+        carpetas = correo.getCarpetas(actual.getCorreo());
+        crearCarpetas();
+
         panel1.removeAll();
         panel1.revalidate();
         panel1.repaint();

@@ -13,7 +13,7 @@ public class NuevoCorreoDP{
         this.recibe="";
         this.asunto="";
         this.texto="";
-        this.fecha="";
+
     }
 
     public NuevoCorreoDP(String datos){
@@ -22,7 +22,7 @@ public class NuevoCorreoDP{
         this.recibe=st.nextToken();
         this.asunto=st.nextToken();
         this.texto=st.nextToken();
-        
+
     }
 
     // Accesors

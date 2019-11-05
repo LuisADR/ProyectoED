@@ -5,22 +5,26 @@ import java.nio.file.*;
 import java.util.LinkedList;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CorreoAD{
   //Atributos
   private CorreoDP cPrimero, cActual, cUltimo;
+  private CarpetaDP carpetaPrimero, carpetaActual, carpetaUltimo;
   private NuevoCorreoDP primero, actual, ultimo;
   private NuevoCorreoDP posActual;
 
   //Atributos de LinkedList
-  private LinkedList listaCorreos= new LinkedList();
+  private LinkedList listaCorreos = new LinkedList();
   private LinkedList listaUsuarios = new LinkedList();
+  private LinkedList listaCarpetas = new LinkedList();
   private int nodoActual;
 
   //Constructor
   public CorreoAD(){
     datosArchivoListaCorreo();
     datosArchivoListaUsuarios();
+    datosArchivoListaCarpetas();
   }
 
   //Registrar Usuario
@@ -40,7 +44,7 @@ public class CorreoAD{
     return datos;
   }
 
-//Consulta de si el correo ya esta registrado
+  //Consulta de si el correo ya esta registrado
   public String consultarCorreo(String datos){
     StringTokenizer st = new StringTokenizer(datos,"_");
 
@@ -74,8 +78,40 @@ public class CorreoAD{
       return datos;
   }
 
+  //Añadir usuario a lista
   public void capturarUsuario(String datos){
     listaUsuarios.add(new CorreoDP(datos));
+  }
+
+  //Añadir carpeta a lista
+  public void capturarCarpeta(String datos){
+    listaCarpetas.add(new CarpetaDP(datos));
+  }
+
+  //Añadir una nueva carpeta
+  public void capturarCarpetaNueva(String datos){
+    listaCarpetas.add(new CarpetaDP(datos));
+    datosCarpetaArchivo();
+  }
+
+  //Añadir correo a carpeta
+  public void agregarCorreoCarpeta(String mail, String nombreCarpeta){
+    
+  }
+
+  //Enviar nombre de carpetas
+  public ArrayList<String> getCarpetas(String usuario){
+    ArrayList<String> carpetas = new ArrayList<String>();
+    int i = 0;
+
+    while(i < listaCarpetas.size()){
+      carpetaActual = (CarpetaDP)listaCarpetas.get(i);
+      if(carpetaActual.getCuenta().equals(usuario))
+        carpetas.add(carpetaActual.getNombreCarpeta());
+      i++;
+    }
+
+    return carpetas;
   }
 
   //Creacion de Conexion
@@ -115,19 +151,20 @@ public class CorreoAD{
     return "Nuevo Auto anclado al inicio";
   }
 
-
+  //Registrar los correos
   public String captura(String datos){
     listaCorreos.add(new NuevoCorreoDP(datos));
     return "Nuevo correo enviado";
   }
 
+  //Registrar nuevos correos
   public void capturaNueva(String datos){
     listaCorreos.add(new NuevoCorreoDP(datos));
     datosListaArchivo();
     //return "Correo enviado";
   }
 
-//Consulta de si el destino existe en el registro
+  //Consulta de si el destino existe en el registro
   public String consultarExistente(String datos){
     StringTokenizer st = new StringTokenizer(datos,"_");
 
@@ -161,6 +198,7 @@ public class CorreoAD{
       return datos;
   }
 
+  //Consulta general
   public String consultar(){
     String datos="";
     int i=0;
@@ -178,7 +216,7 @@ public class CorreoAD{
     return datos;
   }
 
-//Consulta de correos enviados a cierto destino
+  //Consulta de correos enviados a cierto destino
   public String consultarDestino(String destino, String envia){
     String datos="";
     int i=0;
@@ -205,7 +243,7 @@ public class CorreoAD{
       return datos;
   }
 
-//Consulta de correos enviados con determinado asunto
+  //Consulta de correos enviados con determinado asunto
   public String consultarAsunto(String asunto, String envia){
     String datos="";
     int i=0;
@@ -265,7 +303,7 @@ public class CorreoAD{
   }
 
 
-//Control de textos y archivos
+  //Control de textos y archivos
   public String datosListaArchivo(){
     String resultado="", datos="";
     PrintWriter archivoOut;
@@ -303,6 +341,42 @@ public class CorreoAD{
     return resultado;
   }
 
+  public String datosCarpetaArchivo(){
+    String resultado="", datos="";
+    PrintWriter archivoOut;
+    int i=0;
+
+    if(listaCarpetas.isEmpty()){
+      datos="Lista vacia";
+      try{
+        Files.deleteIfExists(Paths.get("Carpetas.txt"));
+      }
+      catch(NoSuchFileException nsfe){
+        System.out.println(nsfe);
+      }
+      catch(IOException ioe){
+        System.out.println(ioe);
+      }
+    }
+    else{
+      try{
+        archivoOut= new PrintWriter(new FileWriter("Carpetas.txt"));
+        while(i<listaCarpetas.size()){
+          carpetaActual=(CarpetaDP)listaCarpetas.get(i);
+          archivoOut.println(carpetaActual.toString());
+          i++;
+        }
+        archivoOut.close();
+        resultado="Datos almacenados en Archivo";
+      }
+      catch(IOException ioe){
+				resultado ="ERROR: "+ioe;
+				System.out.println("Error: +ioe");
+			}
+    }
+
+    return resultado;
+  }
 
   public void datosUsuarioArchivo(){
     String resultado="", datos="";
@@ -366,6 +440,24 @@ public class CorreoAD{
   		BufferedReader archivoIn = new BufferedReader(new FileReader("Usuarios.txt"));
   		while(archivoIn.ready())
 				capturarUsuario(archivoIn.readLine());
+
+				archivoIn.close();
+  		}
+  		catch(FileNotFoundException fnfe)
+  		{
+  			System.out.println("Error: "+fnfe);
+  		}
+  		catch(IOException ioe)
+  		{
+  			System.out.println("Error: "+ioe);
+  		}
+  }
+
+  public void datosArchivoListaCarpetas(){
+    try{
+  		BufferedReader archivoIn = new BufferedReader(new FileReader("Carpetas.txt"));
+  		while(archivoIn.ready())
+				capturarCarpeta(archivoIn.readLine());
 
 				archivoIn.close();
   		}
