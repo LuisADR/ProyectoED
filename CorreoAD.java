@@ -345,6 +345,38 @@ public class CorreoAD{
     }
   }
 
+  //Generacion de una lista de correos
+  public JPanel consultarJPEnviados(String cuenta){
+    JPanel pCorreo = new JPanel();
+    int i =0;
+    boolean isEmpty = true;
+
+    if(listaCorreos.isEmpty()){
+      pCorreo.add(new JLabel("No tiene ningun correo"));
+      return pCorreo;
+    } else {
+      pCorreo.setLayout(new GridLayout(listaCorreos.size(),1));
+
+      while(i < listaCorreos.size()){
+        actual=(NuevoCorreoDP) listaCorreos.get(i);
+        if(actual.getEnvia().equals(cuenta)){
+          pCorreo.add(new CorreoMGUI((NuevoCorreoDP) listaCorreos.get(i), cuenta, true));
+          isEmpty = false;
+        }
+
+        System.out.println("Entro");
+        i++;
+      }
+
+      if(isEmpty){
+        pCorreo.add(new JLabel("No tiene ningun correo"));
+      }
+
+      System.out.println("Termino");
+      return pCorreo;
+    }
+  }
+
   public JPanel consultarJP(String cuenta, String carpeta){
 
     JPanel pCorreo = new JPanel();

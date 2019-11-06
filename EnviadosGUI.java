@@ -7,7 +7,7 @@ public class EnviadosGUI extends JPanel implements ActionListener{
   //private JTextField
   private JButton bSalir;
   private JTextArea taDatos;
-  private JPanel panel1, panel2;
+  private JPanel panel1, panel2, panelCorreo;
 
   private CorreoAD correo= new CorreoAD();
   private CorreoDP act;
@@ -16,7 +16,8 @@ public class EnviadosGUI extends JPanel implements ActionListener{
 
   public EnviadosGUI(CorreoDP actual){
 
-    act= actual;
+    act         =   actual;
+    panelCorreo =   correo.consultarJPEnviados(act.getCorreo());
     bSalir      =   new JButton("Salir");
     taDatos     =   new JTextArea(20,40);
     panel1      =   new JPanel();
@@ -34,7 +35,7 @@ public class EnviadosGUI extends JPanel implements ActionListener{
     //panel1.add(new JLabel("Cuerpo: "));
 
     panel2.add(panel1);
-    panel2.add(new JScrollPane(taDatos));
+    panel2.add(panelCorreo);
 
 
     add(panel2);

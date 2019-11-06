@@ -194,6 +194,7 @@ public class InicioGUI extends JFrame implements ActionListener{
     }
 
     else if(event.getSource()==bIniciar){
+      correo= new CorreoAD();
       actual = correo.crearConexion(tfcorreo.getText(), contrasena.getText());
       if(actual == null) JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
       if(actual != null){
